@@ -10,6 +10,16 @@ Connection services allow for HTTP server (flask) and/or MQTT client (paho-mqtt)
 
 MQTT provides considerable improvements in zone change latency. Also, since flask is really designed only for development and is considered unstable, HTTP usage is not suggested, but only is provided for backwards-compability.
 
+Improvements:
+
+- Greatly reduced latency for zone and alarm status changes
+- Allows for update of alarm time on user request (not just at startup)
+- Enhanced security protocol options
+- User access to zone and partition flags
+- Heartbeat to verify alarm connection is still active
+
+
+>> Insert mqtt explorer image
 
 Install Locally
 ***************
@@ -91,7 +101,6 @@ Before creating the Docker container, you need to define how you connect to the 
  services:
    nx584mqtt:
      container_name: nx584mqtt
-     image: rocket4321/nx584mqtt
      build:
        context: .docker
        dockerfile: Dockerfile
@@ -135,3 +144,13 @@ it with zone names::
  3 = Garage Side
  4 = Garage Back
  5 = Kitchen
+ 
+ 
+ 
+ 
+ ## Optional Home Assistant MQTT Integration
+ 
+ Note: Binary zone sensors created from pynx584 were autonamed from zones, and now would require patience and diligence to reproduce. Zone names and details are all published to the mqtt server, so I suggest using a mqtt explorer to examine your published names and zones numbers to recreate, if desired.
+ 
+ >> Insert HA setup
+ 
