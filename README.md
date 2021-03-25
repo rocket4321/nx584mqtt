@@ -6,8 +6,6 @@ GE/Caddx/NetworX NX584/NX8E Interface Library - HTTP Server & MQTT Client
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/rocket4321/StrapDown.js/graphs/commit-activity)
 
-[![GitHub release](https://img.shields.io/github/release/rocket4321/StrapDown.js.svg)](https://github.com/rocket4321/StrapDown.js/releases/)
-
 [![PyPI version fury.io](https://badge.fury.io/py/nx584mqtt.svg)](https://pypi.python.org/pypi/nx584mqtt/)
 [![PyPI download total](https://img.shields.io/pypi/dt/nx584mqtt.svg)](https://pypi.python.org/pypi/nx584mqtt/)
 
