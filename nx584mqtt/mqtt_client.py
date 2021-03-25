@@ -6,6 +6,7 @@ import logging
 import paho.mqtt.client as mqtt
 import ssl
 
+from nx584mqtt import api_alt
 from nx584mqtt import api
 
 LOG = logging.getLogger('mqtt_client')
@@ -65,26 +66,33 @@ class MQTTClient(object):
     def on_message(self, client, userdata, msg):
         payload = msg.payload.lower().decode('utf-8')
         LOG.debug('Message %s' % str(msg.payload))
+        if api_alt.CONTROLLER is None:
+            LOG.error('api_alt ctrl not connected.')
+            return
         if payload.lower().startswith("arm_away"):
-            if api.CONTROLLER is not None:
+            if api_alt.CONTROLLER is not None:
                 fields = payload.split(",",3) 
-                api.CONTROLLER.arm_exit(int(fields[1]))
+                api_alt.CONTROLLER.arm_exit(int(fields[1]))
+                # Publish template cmd to command topic to clear code
+                client.publish(self._command_topic, "nop", retain=True)
         elif payload.lower().startswith("arm_home"):
-            if api.CONTROLLER is not None:
+            if api_alt.CONTROLLER is not None:
                 fields = payload.split(",",3) 
-                api.CONTROLLER.arm_stay(int(fields[1]))
+                api_alt.CONTROLLER.arm_stay(int(fields[1]))
+                # Publish template cmd to command topic to clear code
+                client.publish(self._command_topic, "nop", retain=True)
         elif payload.lower().startswith("disarm"):
-            if api.CONTROLLER is not None:
+            if api_alt.CONTROLLER is not None:
                 fields = payload.split(",",3) 
-                api.CONTROLLER.disarm(fields[2],int(fields[1]))
+                api_alt.CONTROLLER.disarm(fields[2],int(fields[1]))
                 # Publish template cmd to command topic to clear code
                 client.publish(self._command_topic, "nop", retain=True)
         elif payload.lower() == "time":
-            if api.CONTROLLER is not None:
-                api.CONTROLLER.set_time()
+            if api_alt.CONTROLLER is not None:
+                api_alt.CONTROLLER.set_time()
         elif payload.lower() == "status":
-            if api.CONTROLLER is not None:
-                api.CONTROLLER.publish_all()
+            if api_alt.CONTROLLER is not None:
+                api_alt.CONTROLLER.publish_all()
         elif payload.lower() == "nop":
                 pass
         else:
@@ -97,7 +105,7 @@ class MQTTClient(object):
     def publish(self, topic, msg=None, qos=0, retain=False):
         if self.connected:
             try:
-                LOG.debug('MQTT Publish "%s" to "%s"' % (str(msg),topic) )
+                LOG.debug('MQTT Client Publish "%s" to "%s"' % (str(msg),topic) )
                 self.client.publish(topic, msg, qos, retain)
             except Exception as ex:
                 LOG.error('Unable to publish to %s: %s' % (self._host, ex))
@@ -136,10 +144,15 @@ class MQTTClient(object):
         self.publish(self._state_topic_root + "/system/datetime"
                     , str(now.strftime("%m/%d/%Y, %H:%M:%S"))
                     , retain=False)
+        # Verify controller is still connected.
+        if api_alt.CONTROLLER is None:
+            LOG.error('Controller not connected.')
         # When flask active, avail flag needs to be set online after 2 publish events
         if self._dt_sync_counter < 4:
             self._dt_sync_counter += 1
+# FUTURE: User with large zone count or slow connect may need to adjust this value
         if self._dt_sync_counter == 3:
+            self._dt_sync_counter += 1
             topic = self._state_topic_root + "/system/avail"
             self.publish(topic, "online", retain=True)
 

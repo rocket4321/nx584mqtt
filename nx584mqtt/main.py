@@ -11,7 +11,7 @@ from nx584mqtt import api
 from nx584mqtt import controller
 from nx584mqtt import mqtt_client
 
-VERSION = "1.1.2021.03.24"
+VERSION = "1.0.2021.03.25"
 DEFAULT_MQTT_PORT = 1883
 
 LOG_FORMAT = '%(asctime)-15s %(module)s %(levelname)s %(message)s'
@@ -185,31 +185,37 @@ def main():
         LOG.info('Starting nx584mqtt %s' % VERSION)
         if args.listen:
             api.CONTROLLER = ctrl
+            api_alt.CONTROLLER = ctrl
             # Blocking call
             api.app.run(debug=False, host=args.listen, port=args.port, threaded=True)
         else:
-            # MQTT Only: Utilize api_alt if not using flask
-            api = api_alt.api()
-            api.CONTROLLER = ctrl
+            # MQTT Only
+            api_alt.CONTROLLER = ctrl
+
+            # Exit if not connected and synced within 60 seconds (12 * 5)
+# FUTURE: Make this input parm
             count = 12
             initial_mqtt_client_publish_online = False
-            while (api.CONTROLLER.running):
+            while (api_alt.CONTROLLER.running):
                 time.sleep(5)
-                if (api.CONTROLLER.mqtt_client.connected == False):
-                    LOG.debug('Count down to exit %s - %s' % ( int(count), api.CONTROLLER.queue_active) )
+                if (api_alt.CONTROLLER.mqtt_client.connected == False):
+                    LOG.debug('Count down to exit %s - %s' % ( int(count), api_alt.CONTROLLER.queue_active) )
                     count -= 1
-                if (initial_mqtt_client_publish_online == False) and (api.CONTROLLER.queue_active == False) and (api.CONTROLLER.initial_mqtt_publish_all_completed): 
+                if (initial_mqtt_client_publish_online == False) and (api_alt.CONTROLLER.queue_active == False) and (api_alt.CONTROLLER.initial_mqtt_publish_all_completed): 
                     initial_mqtt_client_publish_online = True
                     topic = state_topic_root + "/system/avail"
-                    api.CONTROLLER.mqtt_client.publish(topic, "online", retain=True)
+                    api_alt.CONTROLLER.mqtt_client.publish(topic, "online", retain=True)
                 if (count < 1):
-                    api.CONTROLLER.running = False
+                    api_alt.CONTROLLER.running = False
     except Exception as ex:
         print('Fatal: %s' % str(ex) )
     finally:
         # MQTT LWT - Mark system and zones as offline
-        if args.mqtt is not None:
-            topic = state_topic_root + "/system/avail"
-            api.CONTROLLER.mqtt_client.publish(topic, "offline", retain=True)
+        try:
+            if args.mqtt is not None:
+                topic = state_topic_root + "/system/avail"
+                api_alt.CONTROLLER.mqtt_client.publish(topic, "offline", retain=True)
+        except Exception as ex:
+            LOG.error('Unable to send MQTT Last Will message: %s' % str(ex) )
         sys.exit()
 

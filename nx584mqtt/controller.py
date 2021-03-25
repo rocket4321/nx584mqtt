@@ -16,7 +16,7 @@ from nx584mqtt import mail
 from nx584mqtt import model
 from nx584mqtt import mqtt_client
 
-from flask import request
+#from flask import request
 
 LOG = logging.getLogger('controller')
 
