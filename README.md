@@ -4,10 +4,12 @@ GE/Caddx/NetworX NX584/NX8E Interface Library and Server
 
 ![example workflow](https://github.com/rocket4321/nx584mqtt/actions/workflows/publish-to-test-pypi.yml/badge.svg)
 
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+
 [![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/releases/)
 
-[![PyPI version fury.io](https://badge.fury.io/py/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
-[![PyPI download total](https://img.shields.io/pypi/dt/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
+[![PyPI version fury.io](https://badge.fury.io/py/nx584mqtt.svg)](https://pypi.python.org/pypi/nx584mqtt/)
+[![PyPI download total](https://img.shields.io/pypi/dt/nx584mqtt.svg)](https://pypi.python.org/pypi/nx584mqtt/)
 
 [![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/issues/)
 [![Known Vulnerabilities](https://snyk.io/test/github/rocket4321/nx584mqtt/badge.svg)](https://snyk.io/test/github/rocket4321/nx584mqtt)
