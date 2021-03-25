@@ -1,4 +1,4 @@
-GE/Caddx/NetworX NX584/NX8E Interface Library - HTTP Server & MQTT Client
+GE/Caddx/NetworX NX584/NX8E Interface Library - MQTT Client & HTTP Server
 =========================================================================
 
 
