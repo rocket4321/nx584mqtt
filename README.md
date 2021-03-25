@@ -17,7 +17,7 @@ GE/Caddx/NetworX NX584/NX8E Interface Library - HTTP Server & MQTT Client
 
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
-This is a tool to let you interact with your NetworX alarm panel via
+This is a tool to let you interact with your GE/Caddx/NetworX alarm panel via
 the NX584 module (which is built into NX8E panels). You must enable it
 in the configuration of the control panel. 
 
