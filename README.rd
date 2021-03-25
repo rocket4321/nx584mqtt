@@ -152,9 +152,40 @@ it with zone names::
  
  
  
- ## Optional Home Assistant MQTT Integration
+# Optional Home Assistant MQTT Integration
  
- Note: Binary zone sensors created from pynx584 were autonamed from zones, and now would require patience and diligence to reproduce. Zone names and details are all published to the mqtt server, so I suggest using a mqtt explorer to examine your published names and zones numbers to recreate, if desired.
  
- >> Insert HA setup
- 
+>> Binary Sensors
+Note: Previous binary sensors were autonamed from zones, and now would require patience and diligence to reproduce. 
+Zone names and details are all published to the mqtt server.
+I would suggest using a mqtt explorer to examine your published names and zones numbers to recreate, if desired
+```
+  - platform: mqtt
+    state_topic: "tele/nx584/zones/1/faulted"
+    name: "Z1 Front Door"
+    device_class: opening
+    payload_off: "false"
+    payload_on: "true"
+    availability:
+      - topic: "tele/nx584/system/avail"
+        payload_available: "online"
+        payload_not_available: "offline"
+```
+>> Alarm Control Panel
+```
+alarm_control_panel:
+  - platform: mqtt
+    state_topic: "tele/nx584/partitions/1/state"
+    command_topic: "cmnd/nx584/action"
+#    command_template: "{{action}},{partition_int_hardcode_REPLACE_ME},{{code}}"
+    command_template: "{{action}},1,{{code}}"
+    code_arm_required: false
+    code_disarm_required: true
+    code_format: "number"
+    name: "nx584"
+    retain: true
+```
+
+As of Mar 2021 (HASS core-2021.3.4) to implement the mqtt alarm control panel, a slight adjustment must be performed to the MQTT componenent in HASS. 
+I had requested this change, but HASS dev team quickly closed my code change request, stating it was an enhancement. It you would like to see this change too,
+urge them to reconsider by creating another issue like https://github.com/home-assistant/core/issues/47234
