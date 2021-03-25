@@ -40,9 +40,25 @@ or::
 
 # MQTT Usage
 
- # nx584_server --mqtt_host 192.168.1.102 [...] 
+ # nx584_server --mqtt 192.168.1.102 [...] 
 
-< TODO: Insert mqtt command line parms >>
+
+# Command Line Parameters
+
+-- HTTP
+'--listen' - 'HTTP Server address (defaults to disabled)'
+'--port' - 'HTTP Server port (defaults to 5007)'
+
+-- MQTT
+'--mqtt' - 'MQTT Client Host to connect'
+'--mqttPort' - 'MQTT client port (defaults to 1883)'
+'--username' - 'MQTT Client Username'
+'--password' - 'MQTT Client Password')
+'--stateTopicRoot' - 'Root topic for MQTT Client publishing (defaults to 'home/alarm')'
+'--commandTopic', - 'Command topic for MQTT Client subscription/monitoring (defaults to 'home/alarm/set')'
+'--mqttTlsActive' - 'Enable MQTT TLS (default= to false)'
+'--mqttTlsInsecure' - 'Ignore MQTT TLS Insecurities (Not Recommended) (defaults to false)'
+'--timeout' - 'MQTT Timeout in seconds (default is 10)'
 
 - Publish to mqtt <command topic> with value:
 ::
