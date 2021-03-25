@@ -16,16 +16,16 @@ Install Locally
 
 ::
 
- # pip install nx584mqtt
+ # pip3 install nx584mqtt
  
  - Package installation allows for optional requirements, based on user needs:
  
- # pip install nx584mqtt:full
+ # pip3 install nx584mqtt:full
  >> All options
- # pip install nx584mqtt:http
+ # pip3 install nx584mqtt:http
  >> Installs flask
- # pip install nx584mqtt:mqtt
- >> Installs paho-mqtt
+ # pip3 install nx584mqtt:client
+ >> Installs prettytable
  
  
 
@@ -42,7 +42,7 @@ or::
 
 
 
-# Client Usage (if installed)
+# Client Usage (if enabled/installed)
 
 Once that is running, you should be able to do something like this::
 
