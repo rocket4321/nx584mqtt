@@ -24,6 +24,10 @@ Connection services allow for HTTP server (flask) and/or MQTT client (paho-mqtt)
 
 MQTT provides considerable improvements in zone change latency. Also, since flask is really designed only for development and is considered unstable, HTTP usage is not suggested, but only is provided for backwards-compability.
 
+# Installation Details:
+
+[README](README.rd)
+
 ------------------------------------------------
 # Improvements:
 
