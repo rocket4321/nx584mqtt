@@ -1,10 +1,15 @@
-NetworX NX584/NX8E Interface Library and Server
+GE/Caddx/NetworX NX584/NX8E Interface Library and Server
 ===============================================
 
 This is a tool to let you interact with your NetworX alarm panel via
 the NX584 module (which is built into NX8E panels). You must enable it
-in the configuration and enable the operations you want to be able to
-do before this will work.
+in the configuration of the control panel. 
+
+This package is designed to be a direct replacement for pynx584.
+Connection services allow for HTTP server (flask) and/or MQTT client (paho-mqtt).
+
+Since flask is really designed only for development and is considered unstable, HTTP usage is not suggested.
+
 
 Install Locally
 ***************
@@ -12,6 +17,17 @@ Install Locally
 ::
 
  # pip install nx584mqtt
+ 
+ - Package installation allows for optional requirements, based on user needs:
+ 
+ # pip install nx584mqtt:full
+ >> All options
+ # pip install nx584mqtt:http
+ >> Installs flask
+ # pip install nx584mqtt:mqtt
+ >> Installs paho-mqtt
+ 
+ 
 
 The server must be run on a machine with connectivity to the panel,
 which can be a local serial port, or a Serial-over-LAN device (i.e. a
@@ -22,6 +38,11 @@ TCP socket). For example::
 or::
 
  # nx584_server --connect 192.168.1.101:23
+
+
+
+
+# Client Usage (if installed)
 
 Once that is running, you should be able to do something like this::
 
