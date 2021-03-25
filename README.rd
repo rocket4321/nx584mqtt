@@ -14,10 +14,9 @@ MQTT provides considerable improvements in zone change latency. Also, since flas
 Typical use case is for a NX/Caddx alarm connected to MQTT mosquitto broker, possibly then to Home Assistant.
  
 # Install
-***************
+************************************************************
 - Package installation allows for optional requirements, based on user needs:
  
-::
  # pip3 install nx584mqtt
  >> default
  # pip3 install nx584mqtt:full
@@ -33,7 +32,7 @@ TCP socket). For example::
 
  # nx584_server --serial /dev/ttyS0 --baud 38400 [...]
 
-or::
+or
 
  # nx584_server --connect 192.168.1.101:23 [...]
 
@@ -44,7 +43,7 @@ or::
 
 
 # Command Line Parameters
-
+************************************************************
 -- HTTP
 '--listen' - 'HTTP Server address (defaults to disabled)'
 '--port' - 'HTTP Server port (defaults to 5007)'
@@ -73,7 +72,7 @@ or::
 
 
 # Client Usage (if enabled/installed)
-
+************************************************************
 Once that is running, you should be able to do something like this::
 
  $ nx584_client summary
@@ -102,7 +101,7 @@ Once that is running, you should be able to do something like this::
 
 
 Install Dev version
-**************************
+************************************************************
 
 git clone https://github.com/rocket4321/nx584mqtt
 
@@ -113,7 +112,7 @@ pip3 install .
 
  
 Install via Docker Compose
-**************************
+************************************************************
 Before creating the Docker container, you need to define how you connect to the panel (local serial port, or a Serial-over-LAN device (i.e. a TCP socket)) in the :code:`docker-compose.yml` file. Uncomment and edit the :code:`environment` section to fit your needs::
 
  version: "3.2"
@@ -169,10 +168,10 @@ it with zone names::
  
  
 # Optional Home Assistant MQTT Integration
- 
+ ************************************************************
  
 >> Binary Sensors
-Note: Previous binary sensors were autonamed from zones, and now would require patience and diligence to reproduce. 
+Note: Previous binary sensors were autonamed from zones, and now would require additional effort to reproduce. 
 Zone names and details are all published to the mqtt server.
 I would suggest using a mqtt explorer to examine your published names and zones numbers to recreate, if desired
 ```
