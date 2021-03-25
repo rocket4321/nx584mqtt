@@ -33,8 +33,7 @@ MQTT provides considerable improvements in zone change latency. Also, since flas
 - User access to zone and partition flags
 - Heartbeat to verify alarm connection is still active
 
-
->> Insert mqtt explorer image
+![Screenshot](images/nx584mqtt.jpg)
 
 ------------------------------------------------
 # FUTURE:
