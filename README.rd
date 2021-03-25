@@ -28,7 +28,7 @@ Typical use case is for a NX/Caddx alarm connected to MQTT mosquitto broker, pos
  
 The server must be run on a machine with connectivity to the panel,
 which can be a local serial port, or a Serial-over-LAN device (i.e. a
-TCP socket). For example::
+TCP socket). For example:
 
  # nx584_server --serial /dev/ttyS0 --baud 38400 [...]
 
@@ -58,9 +58,9 @@ or
 '--mqttTlsActive' - 'Enable MQTT TLS (default= to false)'
 '--mqttTlsInsecure' - 'Ignore MQTT TLS Insecurities (Not Recommended) (defaults to false)'
 '--timeout' - 'MQTT Timeout in seconds (default is 10)'
+'--debugLevel' - 'Verbosity of logs written to console [WARNING|INFO|DEBUG] (defaults to WARNING)'
 
 - Publish to mqtt <command topic> with value:
-::
 
 'disarm,<part>,<code>' - Disarms partition <part> using code <code>
 'arm_home,<part>' - Arms home partition <part>
