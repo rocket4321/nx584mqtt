@@ -7,7 +7,7 @@ the NX584 module (which is built into NX8E panels). You must enable it
 in the configuration of the control panel. 
 
 This package is designed to be a direct replacement for pynx584.
-Connection services allow for HTTP server (flask) and/or MQTT client (paho-mqtt).
+Connection services allow for MQTT client (paho-mqtt) and/or legacy HTTP server (flask).
 
 MQTT provides considerable improvements in zone change latency. Also, since flask is really designed only for development and is considered unstable, HTTP usage is not suggested, but only is provided for backwards-compability.
 
@@ -44,7 +44,7 @@ or
 
 # Command Line Parameters
 ************************************************************
--- HTTP
+-- HTTP (legacy)
 '--listen' - 'HTTP Server address (defaults to disabled)'
 '--port' - 'HTTP Server port (defaults to 5007)'
 
@@ -73,7 +73,7 @@ or
 
 # Client Usage (if enabled/installed)
 ************************************************************
-Once that is running, you should be able to do something like this::
+Once the server is is running, you should be able to do something like this:
 
  $ nx584_client summary
  +------+-----------------+--------+--------+
