@@ -53,7 +53,7 @@ Once that is running, you should be able to do something like this::
 Install Dev version
 **************************
 
-git clone http....
+git clone https://github.com/rocket4321/nx584mqtt
 
 cd nx584mqtt
 
