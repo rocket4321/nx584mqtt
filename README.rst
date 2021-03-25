@@ -50,6 +50,18 @@ or::
  # nx584_server --connect 192.168.1.101:23
 
 
+# MQTT Usage
+
+- Publish to mqtt <command topic> with value:
+::
+
+'disarm,<part>,<code>' - Disarms partition <part> using code <code>
+'arm_home,<part>' - Arms home partition <part>
+'arm_away,<part>' - Arms away partition <part>
+'time' - Update alarm time from local time of nx584mqtt server
+'status' - Update mqtt status of all fields (dev only)
+'nop' - No action, clears command after arm/disarm to reduce code visibility
+
 
 
 # Client Usage (if enabled/installed)
