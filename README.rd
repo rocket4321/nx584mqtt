@@ -1,5 +1,6 @@
-GE/Caddx/NetworX NX584/NX8E Interface Library and Server
-===============================================
+nx584mqtt
+NX584/NX8E Interface to HTTP server and MQTT client
+===================================================
 
 This is a tool to let you interact with your NetworX alarm panel via
 the NX584 module (which is built into NX8E panels). You must enable it
