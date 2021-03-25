@@ -1,5 +1,5 @@
 nx584mqtt
-NX584/NX8E Interface to HTTP server and MQTT client
+NX584/NX8E Interface to MQTT client and HTTP server
 ===================================================
 
 This is a tool to let you interact with your NetworX alarm panel via
@@ -11,16 +11,15 @@ Connection services allow for HTTP server (flask) and/or MQTT client (paho-mqtt)
 
 MQTT provides considerable improvements in zone change latency. Also, since flask is really designed only for development and is considered unstable, HTTP usage is not suggested, but only is provided for backwards-compability.
 
+Typical use case is for a NX/Caddx alarm connected to MQTT mosquitto broker, possibly then to Home Assistant.
  
-Install Locally
+# Install
 ***************
-
+- Package installation allows for optional requirements, based on user needs:
+ 
 ::
-
  # pip3 install nx584mqtt
- 
- - Package installation allows for optional requirements, based on user needs:
- 
+ >> default
  # pip3 install nx584mqtt:full
  >> All options
  # pip3 install nx584mqtt:http
@@ -28,20 +27,22 @@ Install Locally
  # pip3 install nx584mqtt:client
  >> Installs prettytable
  
- 
-
 The server must be run on a machine with connectivity to the panel,
 which can be a local serial port, or a Serial-over-LAN device (i.e. a
 TCP socket). For example::
 
- # nx584_server --serial /dev/ttyS0 --baud 38400
+ # nx584_server --serial /dev/ttyS0 --baud 38400 [...]
 
 or::
 
- # nx584_server --connect 192.168.1.101:23
+ # nx584_server --connect 192.168.1.101:23 [...]
 
 
 # MQTT Usage
+
+ # nx584_server --mqtt_host 192.168.1.102 [...] 
+
+< TODO: Insert mqtt command line parms >>
 
 - Publish to mqtt <command topic> with value:
 ::
