@@ -42,8 +42,8 @@ MQTT provides considerable improvements in zone change latency. Also, since flas
 # FUTURE:
 
 - Alter defaults to HA, if needed or desired
-- Improve startup
 - Test MQTT last will and disconnection/reconnection when MQTT server goes offline
+- Verify HTTP event stream still functional
 
 ------------------------------------------------
 # Known Issues:
