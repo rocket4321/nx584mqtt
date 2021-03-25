@@ -1,6 +1,8 @@
 GE/Caddx/NetworX NX584/NX8E Interface Library and Server
 ===============================================
 
+![example workflow](https://github.com/rocket4321/nx584mqtt/actions/workflows/publish-to-test-pypi.yml/badge.svg)
+
 This is a tool to let you interact with your NetworX alarm panel via
 the NX584 module (which is built into NX8E panels). You must enable it
 in the configuration of the control panel. 
