@@ -1,0 +1,175 @@
+#!/usr/bin/env python
+
+import argparse
+import pprint
+import prettytable
+
+from nx584 import client
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('command')
+    parser.add_argument('--zone', default=None, type=int,
+                        help='Zone number for zone-related commands')
+    parser.add_argument('--partition', default=None, type=int,
+                        help='Partition number for partition-related commands')
+    parser.add_argument('--user', default=None, type=int,
+                        help='User number for user-related commands')
+    parser.add_argument('--master', default=None,
+                        help='Master PIN for commands that require it')
+    parser.add_argument('--pin', default=None,
+                        help='User PIN to set (or `x` to disable)')
+    parser.add_argument('--host', default='localhost:5007',
+                        help='Host and port (localhost:5007)')
+    args = parser.parse_args()
+    return args
+
+
+def do_list(clnt, args):
+    for zone in clnt.list_zones():
+        pprint.pprint(zone)
+
+
+def do_list_partitions(clnt, args):
+    for part in clnt.list_partitions():
+        pprint.pprint(part)
+
+
+def do_arm(clnt, args):
+    if args.command == 'arm-stay':
+        mode = 'stay'
+    elif args.command == 'arm-exit':
+        mode = 'exit'
+    else:
+        mode = 'auto'
+    clnt.arm(mode, int(args.partition))
+
+
+def do_disarm(clnt, args):
+    if not args.master:
+        print('Master pin required')
+        return
+    clnt.disarm(args.master, args.partition)
+
+
+def do_summary(clnt, args):
+    t = prettytable.PrettyTable(['Zone', 'Name', 'Bypass', 'Status'])
+    for zone in clnt.list_zones():
+        t.add_row(['%i' % zone['number'], zone['name'],
+                   zone['bypassed'] and 'bypass' or '-',
+                   '%s' % (zone['state'] or False)])
+    print(t)
+
+    for i, part in enumerate(clnt.list_partitions()):
+        status = 'Partition %i %s' % (part['number'],
+                                      part['armed'] and 'armed' or 'disarmed')
+        if part['armed'] or i == 0:
+            print(status)
+
+
+def do_bypass(clnt, args):
+    if args.command == 'bypass':
+        clnt.set_bypass(args.zone, True)
+    elif args.command == 'unbypass':
+        clnt.set_bypass(args.zone, False)
+
+
+def do_show(clnt, args):
+    if args.zone:
+        for zone in clnt.list_zones():
+            if zone['number'] == args.zone:
+                pprint.pprint(zone)
+                return
+        print('No such zone `%s\'' % args.zone)
+    elif args.partition:
+        for part in clnt.list_partitions():
+            if part['number'] == args.partition:
+                pprint.pprint(part)
+                return
+        print('No such partition `%s\'' % args.partition)
+    else:
+        print('Zone or Partition required')
+
+
+def do_get_user(clnt, args):
+    if not (args.user and args.master):
+        print('User number and master pin required')
+        return
+    user = clnt.get_user(args.master, args.user)
+    if user:
+        pprint.pprint(user)
+    else:
+        print('Unable to fetch user information')
+
+
+def do_user_summary(clnt, args):
+    t = prettytable.PrettyTable(['User', 'PIN', 'Master'])
+    if not (args.user and args.master):
+        print('User number (max) and master pin required')
+        return
+    for i in range(0, args.user):
+        user = clnt.get_user(args.master, i + 1)
+        t.add_row([user['number'], user['pin'],
+                   'Master / Program' in user['authority_flags']])
+    print(t)
+
+
+def do_set_user_pin(clnt, args):
+    if not (args.user and args.master and args.pin):
+        print('User number and master pin and user pin required')
+        return
+    user = {
+        'number': args.user,
+        'pin': None if args.pin.lower() == 'x' else args.pin,
+    }
+    user = clnt.put_user(args.master, user)
+    if user:
+        pprint.pprint(user)
+    else:
+        print('Unable to set user information')
+
+
+def do_events(clnt, args):
+    while True:
+        events = clnt.get_events()
+        if events:
+            for event in events:
+                print(event)
+
+
+def do_version(clnt, args):
+    print(clnt.get_version())
+
+
+def main():
+    args = parse_args()
+    url = 'http://%s:%s' % tuple(args.host.split(':', 1))
+    clnt = client.Client(url)
+    if args.command == 'list':
+        do_list(clnt, args)
+    elif args.command in ['arm', 'arm-stay', 'arm-exit', 'arm-auto']:
+        do_arm(clnt, args)
+    elif args.command == 'disarm':
+        do_disarm(clnt, args)
+    elif args.command == 'partitions':
+        do_list_partitions(clnt, args)
+    elif args.command == 'summary':
+        do_summary(clnt, args)
+    elif args.command in ['bypass', 'unbypass']:
+        do_bypass(clnt, args)
+    elif args.command == 'show':
+        do_show(clnt, args)
+    elif args.command == 'getuser':
+        do_get_user(clnt, args)
+    elif args.command == 'setuserpin':
+        do_set_user_pin(clnt, args)
+    elif args.command == 'users':
+        do_user_summary(clnt, args)
+    elif args.command == 'events':
+        do_events(clnt, args)
+    elif args.command == 'version':
+        do_version(clnt, args)
+
+if __name__ == '__main__':
+    main()
