@@ -1,5 +1,5 @@
-GE/Caddx/NetworX NX584/NX8E Interface Library and Server
-===============================================
+GE/Caddx/NetworX NX584/NX8E Interface Library - HTTP Server & MQTT Client
+=========================================================================
 
 
 ![example workflow](https://github.com/rocket4321/nx584mqtt/actions/workflows/publish-to-test-pypi.yml/badge.svg)
@@ -26,7 +26,8 @@ Connection services allow for HTTP server (flask) and/or MQTT client (paho-mqtt)
 
 MQTT provides considerable improvements in zone change latency. Also, since flask is really designed only for development and is considered unstable, HTTP usage is not suggested, but only is provided for backwards-compability.
 
-Improvements:
+------------------------------------------------
+# Improvements:
 
 - Greatly reduced latency for zone and alarm status changes
 - Allows for update of alarm time on user request (not just at startup)
@@ -36,3 +37,26 @@ Improvements:
 
 
 >> Insert mqtt explorer image
+
+------------------------------------------------
+# FUTURE:
+
+- Alter defaults to HA, if needed or desired
+- Improve startup
+- Test MQTT last will and disconnection/reconnection when MQTT server goes offline
+
+------------------------------------------------
+# Known Issues:
+
+- At startup, the alarm requests details on all the zones, so it takes about 5 secs per zone. Therefore the alarm may take a minute or two at startup to show online. This time period is extended if HTTP is enabled.
+
+- nx584_client continues to use the HTTP connection method, so server port connect from the client host must be available
+
+------------------------------------------------
+
+# BREAKING CHANGES (minimal from pynx584):
+
+- For pynx584, HTTP was always enabled, and now requires the corresponding input parm to activate if desired.
+
+- Previously, the logs for HTTP connections were always logged to console, and now require log level INFO (not-default)
+
