@@ -1,10 +1,6 @@
 GE/Caddx/NetworX NX584/NX8E Interface Library and Server
 ===============================================
 
-https://github.com/rocket4321/nx584mqtt/actions/workflows/publish-to-test-pypi.yml/badge.svg
-
-[![Known Vulnerabilities](https://snyk.io/test/github/rocket4321/nx584mqtt/badge.svg)](https://snyk.io/test/github/rocket4321/nx584mqtt)
-
 This is a tool to let you interact with your NetworX alarm panel via
 the NX584 module (which is built into NX8E panels). You must enable it
 in the configuration of the control panel. 
@@ -14,17 +10,7 @@ Connection services allow for HTTP server (flask) and/or MQTT client (paho-mqtt)
 
 MQTT provides considerable improvements in zone change latency. Also, since flask is really designed only for development and is considered unstable, HTTP usage is not suggested, but only is provided for backwards-compability.
 
-Improvements:
-
-- Greatly reduced latency for zone and alarm status changes
-- Allows for update of alarm time on user request (not just at startup)
-- Enhanced security protocol options
-- User access to zone and partition flags
-- Heartbeat to verify alarm connection is still active
-
-
->> Insert mqtt explorer image
-
+ 
 Install Locally
 ***************
 
