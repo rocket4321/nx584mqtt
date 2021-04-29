@@ -7,8 +7,8 @@ with open(path.join(this_directory, 'README.rd'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='nx584mqtt',
-      version='0.1.0',
-      description='NX584/NX8E Interface Library and Server',
+      version='0.1.1',
+      description='NX584/NX8E Interface Library and Server with MQTT client',
       long_description=long_description,
       long_description_content_type='text/markdown',
       author='rocket4321',
