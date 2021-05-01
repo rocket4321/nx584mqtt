@@ -7,7 +7,6 @@ import paho.mqtt.client as mqtt
 import ssl
 
 from nx584mqtt import api_alt
-from nx584mqtt import api
 
 LOG = logging.getLogger('mqtt_client')
 
