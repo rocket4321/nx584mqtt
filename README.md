@@ -21,7 +21,7 @@ MQTT provides considerable improvements in zone change latency. Also, since flas
 
 # Installation Details:
 
-[README](README.txt)
+[DETAILS](DETAILS.txt)
 
 ------------------------------------------------
 # Improvements:
