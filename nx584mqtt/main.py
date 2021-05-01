@@ -11,7 +11,7 @@ from nx584mqtt import api
 from nx584mqtt import controller
 from nx584mqtt import mqtt_client
 
-VERSION = "1.0.2021.03.25"
+VERSION = "1.0.2021.05.01"
 DEFAULT_MQTT_PORT = 1883
 
 LOG_FORMAT = '%(asctime)-15s %(module)s %(levelname)s %(message)s'
@@ -27,6 +27,10 @@ class NoFlaskInfoFilter(logging.Filter):
 
 def main():
     parser = argparse.ArgumentParser()
+    # Help Display to user
+    parser.add_argument('--version', default=False, action='store_true', 
+                        help='Display version')
+
     parser.add_argument('--config', default='config.ini',
                         metavar='FILE',
                         help='Path to config file')
@@ -94,6 +98,10 @@ def main():
 
     LOG.debug("Parsing args...")
     args = parser.parse_args()
+
+    if args.version:
+        LOG.info('%s' % VERSION )
+        sys.exit()
 
     if args.debug and not istty:
         debug_handler = logging.handlers.RotatingFileHandler(
