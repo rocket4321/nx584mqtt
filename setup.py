@@ -3,11 +3,11 @@ from setuptools import setup
 from os import path
 
 this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+with open(path.join(this_directory, 'DETAILS.txt'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='nx584mqtt',
-      version='0.1.3',
+      version='0.1.4',
       description='NX584/NX8E Interface Library and Server with MQTT client',
       long_description=long_description,
       long_description_content_type='text/markdown',
