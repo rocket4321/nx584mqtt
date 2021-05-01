@@ -7,7 +7,6 @@ import threading
 import time
 
 from nx584mqtt import api_alt
-#from nx584mqtt import api
 from nx584mqtt import controller
 from nx584mqtt import mqtt_client
 
@@ -196,11 +195,11 @@ def main():
     try:
         LOG.info('Starting nx584mqtt %s' % VERSION)
         if args.listen:
-            #from nx584mqtt import api
-            #api.CONTROLLER = ctrl
+            from nx584mqtt import api
+            api.CONTROLLER = ctrl
             api_alt.CONTROLLER = ctrl
-            ## Blocking call
-            #api.app.run(debug=False, host=args.listen, port=args.port, threaded=True)
+            # Blocking call
+            api.app.run(debug=False, host=args.listen, port=args.port, threaded=True)
         else:
             # MQTT Only
             api_alt.CONTROLLER = ctrl
