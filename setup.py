@@ -22,4 +22,3 @@ setup(name='nx584mqtt',
       },
       scripts=['nx584_server', 'nx584_client'],
   )
-
