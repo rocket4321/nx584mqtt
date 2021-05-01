@@ -7,11 +7,11 @@ import threading
 import time
 
 from nx584mqtt import api_alt
-from nx584mqtt import api
+#from nx584mqtt import api
 from nx584mqtt import controller
 from nx584mqtt import mqtt_client
 
-VERSION = "1.0.2021.05.01"
+VERSION = "0.1.7.2021.05.01"
 DEFAULT_MQTT_PORT = 1883
 
 LOG_FORMAT = '%(asctime)-15s %(module)s %(levelname)s %(message)s'
@@ -103,6 +103,10 @@ def main():
         LOG.info('%s' % VERSION )
         sys.exit()
 
+    if not args.listen and not args.mqtt:
+        LOG.error('Enable --listen or --mqtt')
+        sys.exit()
+
     if args.debug and not istty:
         debug_handler = logging.handlers.RotatingFileHandler(
             'debug.log',
@@ -192,6 +196,7 @@ def main():
     try:
         LOG.info('Starting nx584mqtt %s' % VERSION)
         if args.listen:
+            from nx584mqtt import api
             api.CONTROLLER = ctrl
             api_alt.CONTROLLER = ctrl
             # Blocking call
