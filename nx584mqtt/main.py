@@ -11,7 +11,7 @@ from nx584mqtt import api_alt
 from nx584mqtt import controller
 from nx584mqtt import mqtt_client
 
-VERSION = "0.1.8.2021.05.01"
+VERSION = "0.1.9.2021.05.01"
 DEFAULT_MQTT_PORT = 1883
 
 LOG_FORMAT = '%(asctime)-15s %(module)s %(levelname)s %(message)s'
@@ -196,11 +196,11 @@ def main():
     try:
         LOG.info('Starting nx584mqtt %s' % VERSION)
         if args.listen:
-            from nx584mqtt import api
-            api.CONTROLLER = ctrl
+            #from nx584mqtt import api
+            #api.CONTROLLER = ctrl
             api_alt.CONTROLLER = ctrl
-            # Blocking call
-            api.app.run(debug=False, host=args.listen, port=args.port, threaded=True)
+            ## Blocking call
+            #api.app.run(debug=False, host=args.listen, port=args.port, threaded=True)
         else:
             # MQTT Only
             api_alt.CONTROLLER = ctrl
