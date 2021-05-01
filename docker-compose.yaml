@@ -1,0 +1,17 @@
+
+version: '3'
+services:
+
+  nx584_server:
+    build:
+      context: "."
+    container_name: "nx584-server"
+    ports:
+      - "5007:5007"
+    devices:
+      - /dev/ttyS0:/dev/ttyS0
+#      - /dev/ttyUSB0:/dev/ttyUSB0
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    restart: "no"
+
