@@ -137,8 +137,11 @@ class Partition(object):
 
     @property
     def armedHome(self):
-        return 'Instant' in self.condition_flags
-
+        return (
+                'Entryguard (stay mode)' in self.condition_flags
+                or 'Silent exit enabled' in self.condition_flags
+                or 'Instant' in self.condition_flags
+               )
 
 class System(object):
     STATUS_FLAGS = [
