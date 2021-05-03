@@ -10,7 +10,7 @@ from nx584mqtt import api_alt
 from nx584mqtt import controller
 from nx584mqtt import mqtt_client
 
-VERSION = "0.1.11.2021.05.01"
+VERSION = "0.1.12.2021.05.02"
 DEFAULT_MQTT_PORT = 1883
 
 LOG_FORMAT = '%(asctime)-15s %(module)s %(levelname)s %(message)s'
