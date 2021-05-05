@@ -65,6 +65,7 @@ or
 'disarm,<part>,<code>' - Disarms partition <part> using code <code>
 'arm_home,<part>' - Arms home partition <part>
 'arm_away,<part>' - Arms away partition <part>
+'bypass_toggle,<zone>' - Toggle bypass of zone (be sure zone is bypassable!!)
 'time' - Update alarm time from local time of nx584mqtt server
 'status' - Update mqtt status of all fields (dev only)
 'nop' - No action, clears command after arm/disarm to reduce code visibility
@@ -154,22 +155,6 @@ it with zone names::
  4 = Garage Back
  5 = Kitchen
  
- 
- 
- # MQTT commands to command topic:
- ************************************************************
- 
- Arm Away:
- 'arm_away,<partition>,<code if required>'
- 
- Arm Home:
- 'arm_away,<partition>,<code if required>'
- 
- Disarm
- 'disarm,<partition>,<code>'
- 
- Toggle Zone Bypass
- 'bypass_toggle,<zone>'
  
  
 # Optional Home Assistant MQTT Integration
