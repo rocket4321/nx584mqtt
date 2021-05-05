@@ -100,16 +100,6 @@ Once the server is is running, you should be able to do something like this:
 
 
 
-Install Dev version
-************************************************************
-
-git clone https://github.com/rocket4321/nx584mqtt
-
-cd nx584mqtt
-
-pip3 install .
-
-
  
 Install via Docker Compose
 ************************************************************
@@ -166,6 +156,21 @@ it with zone names::
  
  
  
+ # MQTT commands to command topic:
+ ************************************************************
+ 
+ Arm Away:
+ 'arm_away,<partition>,<code if required>'
+ 
+ Arm Home:
+ 'arm_away,<partition>,<code if required>'
+ 
+ Disarm
+ 'disarm,<partition>,<code>'
+ 
+ Toggle Zone Bypass
+ 'bypass_toggle,<zone>'
+ 
  
 # Optional Home Assistant MQTT Integration
  ************************************************************
@@ -201,6 +206,10 @@ alarm_control_panel:
     retain: true
 ```
 
+NOTE: The below alarm integration allows the user to be displayed a keypad in the Home Assistant web interface.
+
 As of Mar 2021 (HASS core-2021.3.4) to implement the mqtt alarm control panel, a slight adjustment must be performed to the MQTT componenent in HASS. 
 I had requested this change, but HASS dev team quickly closed my code change request, stating it was an enhancement. It you would like to see this change too,
 urge them to reconsider by creating another issue like https://github.com/home-assistant/core/issues/47234
+
+If you prefer no keypad, then no change is required to HA.
