@@ -68,7 +68,11 @@ class MQTTClient(object):
         if api_alt.CONTROLLER is None:
             LOG.error('api_alt ctrl not connected.')
             return
-        if payload.lower().startswith("arm_away"):
+        if payload.lower().startswith("bypass_toggle"):
+            if api_alt.CONTROLLER is not None:
+                fields = payload.split(",",2)
+                api_alt.CONTROLLER.zone_bypass_toggle(int(fields[1]))
+        elif payload.lower().startswith("arm_away"):
             if api_alt.CONTROLLER is not None:
                 fields = payload.split(",",3) 
                 api_alt.CONTROLLER.arm_exit(int(fields[1]))
